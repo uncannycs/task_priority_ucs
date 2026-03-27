@@ -1,0 +1,71 @@
+<?xml version ="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id='project_task_priority_view' model='ir.ui.view'>
+            <field name='name'>project.task.priority.view</field>
+            <field name='model'>project.task</field>
+            <field name='inherit_id' ref='project.view_task_form2' />
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='tag_ids']" position='after'>
+                    <field name='dev_priority_readonly' invisible="1" />
+                    <field name='client_priority' groups ='project_task_syncup_ucs.group_internal_project_admin,project_task_syncup_ucs.group_internal_project_lead'/>
+                    <field name='developer_priority' readonly="dev_priority_readonly == True"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='project_task_priority_tree_view' model='ir.ui.view'>
+            <field name='name'>project.task.priority.tree.view</field>
+            <field name='model'>project.task</field>
+            <field name='inherit_id' ref="project.view_task_tree2"/>
+            <field name='arch' type='xml'>
+                <xpath expr="//list" position="attributes">
+                    <attribute name="default_order">sequence_client</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position='after'>
+                    <field name='dev_priority_readonly' invisible="1" column_invisible="True"/>
+                    <field name='client_priority' groups ='project_task_syncup_ucs.group_internal_project_admin , project_task_syncup_ucs.group_internal_project_lead' optional="hide"/>
+                    <field name='developer_priority' readonly="dev_priority_readonly == True" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='project_my_task_tree_view_inherit' model='ir.ui.view'>
+            <field name='name'>project.my.task.tree.view</field>
+            <field name='model'>project.task</field>
+            <field name='inherit_id' ref="project.open_view_my_tasks_list_view"/>
+            <field name='arch' type='xml'>
+                <xpath expr="//list" position="attributes">
+                    <attribute name="default_order">sequence_developer</attribute>
+                </xpath>
+                <xpath expr="//field[@name='client_priority']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='developer_priority']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='project_task_kanban_view_inherit_my_task' model='ir.ui.view'>
+            <field name='name'>project.task.kanban.view.inherit.my.task</field>
+            <field name='model'>project.task</field>
+            <field name='inherit_id' ref="project.view_task_kanban_inherit_my_task"/>
+            <field name='arch' type='xml'>
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="default_order">sequence_developer</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='project_task_kanban_view' model='ir.ui.view'>
+            <field name='name'>project.task.kanban.view</field>
+            <field name='model'>project.task</field>
+            <field name='inherit_id' ref="project.view_task_kanban"/>
+            <field name='arch' type='xml'>
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="default_order">sequence_client</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

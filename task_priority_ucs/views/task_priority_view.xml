@@ -1,0 +1,48 @@
+<?xml version ="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_task_priority_tree_custom" model="ir.ui.view">
+            <field name="name">project.task.priority.tree.view</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <list string="Task Priority" default_order="sequence_developer">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="user_ids" widget="many2many_avatar_user"/>
+                    <field name="allocated_hours"/>
+                    <field name="effective_hours"/>
+                    <field name="client_priority"/>
+                    <field name="developer_priority"/>
+                </list>
+            </field>
+        </record>
+
+        <record id='project_task_kanban_view_inherit_my_task' model='ir.ui.view'>
+            <field name='name'>project.task.kanban.view.inherit.my.task</field>
+            <field name='model'>project.task</field>
+            <field name='inherit_id' ref="project.view_task_kanban_inherit_my_task"/>
+            <field name='arch' type='xml'>
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="default_order">sequence_developer</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_client_task_priority" model="ir.actions.act_window">
+            <field name="name">Developer Task Priority</field>
+            <field name="res_model">project.task</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">list,form,kanban,search</field>
+            <field name="view_id" ref="view_task_priority_tree_custom"/>
+            <field name="context">{'group_by': 'user_ids'}</field>
+            <field name="domain">['|', ('project_id.is_child_project', '=', True), ('project_id.is_internal', '=', True)]</field>
+            <field name="xml_id" eval="'task_priority_ucs.client_task_priority'"/>
+        </record>
+
+        <menuitem id="project.client_task_priority"
+                  name="Developer Task priority"
+                  action = 'action_client_task_priority'
+                  parent="project.menu_project_management"
+                  groups ='project_task_syncup_ucs.group_internal_project_admin,project_task_syncup_ucs.group_internal_project_lead'/>
+    </data>
+</odoo>

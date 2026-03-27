@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_assign_priority_form" model="ir.ui.view">
+		<field name="name">view.assign.priority.form</field>
+		<field name="model">assign.priority</field>
+		<field name="arch" type="xml">
+			<form string="assign priority">
+				<notebook >
+					<page string="Tasks" >
+						<group>
+							<field name="client_priority_bool" />
+							<field name="developer_priority_bool"/>
+						</group>
+						<field name="task_ids" >
+							<list limit="10">
+								<field name="wizard_index" widget="handle"/>
+								<field name="wizard_index"/>
+								<field name="name" />
+								<field name="project_id" />
+								<field name="user_ids" widget="many2many_avatar_user"	/>
+								<field name="allocated_hours"/>
+								<field name="date_deadline"/>
+								<field name="developer_priority"/>
+								<field name="client_priority" />
+							</list>
+						</field>
+					</page>
+				</notebook>
+				<footer>
+					<button string="Yes" name="action_assign_priority" type="object"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_assign_priority" model="ir.actions.server">
+		<field name="name">Assign Priority</field>
+		<field name="model_id" ref="task_priority_ucs.model_project_project"/>
+		<field name="binding_model_id" ref="model_project_task"/>
+		<field name="groups_id"  eval="[(3, ref('project_task_syncup_ucs.group_internal_project_user')),(4, ref('project_task_syncup_ucs.group_internal_project_admin')),(4, ref('project_task_syncup_ucs.group_internal_project_lead'))]"/>
+		<field name="state">code</field>
+		<field name="code">
+			action = {
+			'type':'ir.actions.act_window',
+			'res_model': 'assign.priority',
+			'target' : 'new',
+			'views' : [(env.ref('task_priority_ucs.view_assign_priority_form').id,'form')]
+			}
+		</field>
+	</record>
+</odoo>
