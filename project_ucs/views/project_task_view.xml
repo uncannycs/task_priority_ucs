@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_task_form_view_internal" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group[1]/div/field[@name='project_id']" position="before">
+                    <field name="task_code"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='user_ids']" position="after">
+                    <field name="team_leader_id" readony="0"/>
+                    <field name="is_billable" groups="project.group_project_manager"/>
+                    <field name="is_planned_hours" />
+                </xpath>
+                <xpath expr="//div[@id='date_deadline_and_recurring_task']" position="after">
+                    <field name="project_version_id"/>
+                    <field name="git_url" widget="url"/>
+                    <field name="production_branch"/>
+                    <field name="staging_branch"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_task_kanban_view_internal" model="ir.ui.view">
+            <field name="name">project.task.kanban</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban" />
+            <field name="arch" type="xml">
+                <templates position="before">
+                    <field name="task_code"/>
+                </templates>
+                <xpath expr="//field[@name='name']" position="before">
+                          <field name="task_code"/><s t-if="record.task_code.value" class="ml2 mr2"> <span class="">  </span> </s>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_task_search_view_internal" model="ir.ui.view">
+            <field name="name">project.task.search</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="task_code"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

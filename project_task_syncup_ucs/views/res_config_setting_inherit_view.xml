@@ -1,0 +1,24 @@
+<odoo>
+    <record id="setting_inherit" model="ir.ui.view">
+        <field name="name">project.project.setting.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="project.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='tasks_management']" position="after">
+                <div groups="project_task_syncup_ucs.group_internal_project_admin,project_task_syncup_ucs.group_internal_project_lead">
+                    <h2>Create Internal Project</h2>
+                    <div class="row mt16 o_settings_container" id="create_internal">
+                        <div class="col-xs-12 col-md-6 o_setting_box" id="internal_project">
+                            <div class="o_setting_left_pane">
+                                <field name="is_create_internal_project"/>
+                            </div>
+                            <div class="o_setting_right_pane" name="is_subtract_right">
+                                <div> Create Internal Project </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

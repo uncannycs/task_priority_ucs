@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_project_task_search_inherit" model="ir.ui.view">
+        <field name="name">project.task.search.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form_base"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="filter_domain">['|', '|', ('name', 'ilike', self), ('id', 'ilike', self), ('task_code', 'ilike', self)]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id='project_task_form_view_inherit' model='ir.ui.view'>
+        <field name='name'>project.task.form.view</field>
+        <field name='model'>project.task</field>
+        <field name='inherit_id' ref='project.view_task_form2' />
+        <field name='arch' type='xml'>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="client_task_id" invisible="1"/>
+                <field name="child_task_id" invisible="1"/>
+                <field name="is_created" invisible="1"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button class="oe_stat_button btn-success" name="action_update_stage"
+                        string="Update State" type="object" invisible="not client_task_id"
+                        groups ='project_task_syncup_ucs.group_internal_project_admin,project_task_syncup_ucs.group_internal_project_lead' />
+            </xpath>
+        </field>
+    </record>
+</odoo>

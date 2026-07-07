@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="project.open_create_project" model="ir.actions.act_window">
+            <field name="view_id" ref="project.edit_project"/>
+            <field name="target"></field>
+        </record>
+
+        <record id="project_ucs_form_inherit" model="ir.ui.view">
+            <field name="name">project.project.view.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='label_tasks']" position="before">
+                    <field name="project_short_code"/>
+                </xpath>
+                <xpath expr="//field[@name='label_tasks']" position="after">
+                    <field name="project_version_id" string="Project Version"/>
+                </xpath>
+                <xpath expr="//field[@name='label_tasks']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="team_leader_id" required="True"/>
+                    <field name="project_version_id" string="Project Version"/>
+                    <field name="git_url" widget="url"/>
+                    <field name="production_branch"/>
+                    <field name="staging_branch"/>
+                </xpath>
+<!--                <div name="button_box" position="inside">-->
+<!--                    <button class="oe_stat_button" type="object" name="get_task" icon="fa-dropbox">-->
+<!--                        <field string="Task" name="task_count" widget="statinfo" type="object"/>-->
+<!--                    </button>-->
+<!--                </div>-->
+            </field>
+        </record>
+
+        <record id="project_ucs_inherit_project_form" model="ir.ui.view">
+            <field name="name">project.project.view.form.simplified.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <label for="project_short_code"/>
+                    <field name="project_short_code" required="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_ucs_view_project_project_filter" model="ir.ui.view">
+            <field name="name">project.project.view.search.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_project_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="project_short_code" string="Project Code"/>
+                    <field name="project_version_id" string="Project Version"/>
+                    <field name="team_leader_id" string="Team Leader"/>
+                </xpath>
+                <xpath expr="//group" position="inside">
+                    <filter string="Team Leader" name="Team Leader" context="{'group_by': 'team_leader_id'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

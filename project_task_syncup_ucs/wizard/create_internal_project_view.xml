@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_create_internal_wizard_view_form" model="ir.ui.view">
+        <field name="name">project.create.internal.wizard.view.form</field>
+        <field name="model">create.internal.project</field>
+        <field name="arch" type="xml">
+            <form string="Create Internal Project">
+                <div>
+                    <center>
+                        <span>
+                            <h2>Are you sure you want to create an internal project ?</h2>
+                        </span>
+                    </center>
+                </div>
+                <footer>
+                    <button name="create_internal_project" string="Yes" type="object" class="btn-primary"/>
+                    <button string="No" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+
+

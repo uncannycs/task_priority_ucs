@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id='project_project_form_view_inherit' model='ir.ui.view'>
+        <field name='name'>project.project.form.view</field>
+        <field name='model'>project.project</field>
+        <field name='inherit_id' ref='project.edit_project'/>
+        <field name='arch' type='xml'>
+            <xpath expr="//field[@name='tag_ids']" position='after'>
+                <field name="client_project_id"/>
+                <field name="is_internal" invisible="1"/>
+                <field name="is_child_project" invisible="1"/>
+                <field name="is_parent_project" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Internal Planning">
+                    <form>
+                        <label for="buffer_percentage"/>
+                        <field name="buffer_percentage" />
+                        <span>%
+                        </span>
+                        <label for="buffer_operator"/>
+                        <field name="buffer_operator"/>
+                    </form>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
