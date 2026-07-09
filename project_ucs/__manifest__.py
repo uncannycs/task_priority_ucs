@@ -23,7 +23,7 @@
     'author': 'Uncanny Consulting Services LLP',
     'category': 'Project Management',
     'summary': """Project Customization""",
-    'license': 'AGPL-3',
+    'license': 'OPL-1',
     'website': 'http://www.uncannycs.com',
     'description': """
     """,
