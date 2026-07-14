@@ -37,7 +37,7 @@
         'views/hr_employee_view.xml',
         'views/project_task_type.xml',
     ],
-    'images': ['static/description/banner.png'],
+    'images': ["static/description/banner.gif"],
     'installable': True,
     'application': True,
     'auto_install': False,

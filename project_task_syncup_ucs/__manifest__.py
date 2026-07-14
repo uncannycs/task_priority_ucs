@@ -35,5 +35,5 @@
     "application": False,
     "installable": True,
     "auto_install": False,
-    "images": ["static/description/icon.png"],
+    "images": ["static/description/banner.gif"],
 }
